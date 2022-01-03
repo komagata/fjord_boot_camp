@@ -4,7 +4,7 @@ require "net/http"
 
 module FjordBootCamp
   class Discord
-    def post(message:, webhook_url:)
+    def post(message, webhook_url)
       uri = URI.parse(webhook_url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
