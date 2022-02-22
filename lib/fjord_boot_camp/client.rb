@@ -41,7 +41,7 @@ module FjordBootCamp
         "Authorization" => "Bearer #{@token}"
       }
       response = http.get(uri.path, headers)
-      response.body
+      response.body.force_encoding('UTF-8')
     end
   end
 end
