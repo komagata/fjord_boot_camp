@@ -8,6 +8,7 @@ module FjordBootCamp
     AUTH_API_URL = "https://bootcamp.fjord.jp/api/session"
     COUNT_API_URL = "https://bootcamp.fjord.jp/api/admin/count.json"
     UNASSIGNED_PRODUCT_API_URL = "https://bootcamp.fjord.jp/api/products/unassigned/counts.txt"
+    UNCHECKED_REPORTS_API_URL = "https://bootcamp.fjord.jp/api/reports/unchecked/counts.txt"
 
     attr_accessor :token
 
@@ -33,7 +34,17 @@ module FjordBootCamp
     end
 
     def unassigned_products
-      uri = URI.parse(UNASSIGNED_PRODUCT_API_URL)
+      fetch_plain_text(UNASSIGNED_PRODUCT_API_URL)
+    end
+
+    def unchecked_reports
+      fetch_plain_text(UNCHECKED_REPORTS_API_URL)
+    end
+
+    private
+
+    def fetch_plain_text(url)
+      uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
       headers = {
